@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "maven-webapp.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: {{ include "maven-webapp.name" . }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ include "maven-webapp.name" . }}
+        version: {{ .Values.version }}
+    spec:
+      containers:
+        - name: {{ include "maven-webapp.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 15
+
+  strategy:
+    canary:
+      trafficRouting:
+        nginx:
+          stableIngress: {{ include "maven-webapp.fullname" . }}-ingress
+          canaryIngress: {{ include "maven-webapp.fullname" . }}-ingress-canary
+
+      analysis:
+        templates:
+          - templateName: maven-webapp-error-check
+        startingStep: 1
+        interval: 60s
+
+      steps:
+        - setWeight: 5
+        - pause: { duration: 1m }
+        - setWeight: 20
+        - pause: { duration: 2m }
+        - setWeight: 50
+        - pause: { duration: 5m }
+        - setWeight: 100

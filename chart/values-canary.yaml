@@ -1,0 +1,8 @@
+version: canary
+stableVersion: stable
+
+replicaCount: 2
+
+image:
+  repository: hareesh88666/maven-web-application
+  tag: "6"

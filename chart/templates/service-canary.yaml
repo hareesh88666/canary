@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "maven-webapp.fullname" . }}-canary
+spec:
+  selector:
+    app: {{ include "maven-webapp.name" . }}
+    version: {{ .Values.version }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080

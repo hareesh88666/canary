@@ -1,0 +1,2 @@
+Thank you for using this chart.
+This chart deploys an Argo Rollout (canary) along with stable/canary services and ingresses.

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: maven-webapp
+description: Maven Web Application Canary Deployment
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

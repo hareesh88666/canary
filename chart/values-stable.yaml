@@ -1,0 +1,7 @@
+version: stable
+stableVersion: stable
+replicaCount: 3
+
+image:
+  repository: hareesh88666/maven-web-application
+  tag: "5"
