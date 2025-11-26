@@ -1,11 +1,14 @@
+{{- if .Values.canaryService.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "maven-webapp.fullname" . }}-canary
+  name: maven-webapp-canary
+  labels:
+    app.kubernetes.io/managed-by: Helm
 spec:
-  selector:
-    app: {{ include "maven-webapp.name" . }}
-    version: {{ .Values.version }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: 8080
+  - port: 80
+    targetPort: 80
+  selector:
+    app: maven-webapp
+{{- end }}
