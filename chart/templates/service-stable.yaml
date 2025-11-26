@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: {{ include "maven-webapp.name" . }}
-    version: {{ .Values.stableVersion }}
+    version: {{ .Values.version }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 8080
