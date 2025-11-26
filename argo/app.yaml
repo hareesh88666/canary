@@ -5,16 +5,20 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
-    repoURL: https://github.com/your-org/maven-webapp-gitops
+    repoURL: https://github.com/hareesh88666/canary
     targetRevision: main
     path: chart
+
     helm:
       valueFiles:
         - values-canary.yaml
+
   destination:
     server: https://kubernetes.default.svc
     namespace: default
+
   syncPolicy:
     automated:
       prune: true
