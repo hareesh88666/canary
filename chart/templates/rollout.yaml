@@ -39,6 +39,8 @@ spec:
         nginx:
           stableIngress: {{ include "maven-webapp.fullname" . }}-ingress
           canaryIngress: {{ include "maven-webapp.fullname" . }}-ingress-canary
+          stableService: {{ include "maven-webapp.fullname" . }}
+          canaryService: {{ include "maven-webapp.fullname" . }}-canary
 
       analysis:
         templates:
