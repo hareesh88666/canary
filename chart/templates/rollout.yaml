@@ -44,12 +44,6 @@ spec:
           stableIngress: {{ include "maven-webapp.fullname" . }}-ingress
           canaryIngress: {{ include "maven-webapp.fullname" . }}-ingress-canary
 
-      analysis:
-        templates:
-          - templateName: maven-webapp-error-check
-        startingStep: 1
-        interval: 60s
-
       steps:
         - setWeight: 5
         - pause: { duration: 1m }
