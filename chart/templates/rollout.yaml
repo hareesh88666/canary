@@ -44,11 +44,23 @@ spec:
           stableIngress: {{ include "maven-webapp.fullname" . }}-ingress
           canaryIngress: {{ include "maven-webapp.fullname" . }}-ingress-canary
 
+      # 🔥 ADD THIS SECTION (Prometheus Safety Checks)
+      analysis:
+        templates:
+          - templateName: maven-webapp-error-check
+        startingStep: 1
+        interval: 1m
+        count: 3
+
+      # Canary rollout sequence
       steps:
         - setWeight: 5
         - pause: { duration: 1m }
+
         - setWeight: 20
         - pause: { duration: 2m }
+
         - setWeight: 50
         - pause: { duration: 5m }
+
         - setWeight: 100
