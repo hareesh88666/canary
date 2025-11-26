@@ -1,10 +1,28 @@
+# ============================
+#  GLOBAL SERVICE TOGGLES
+# ============================
+stableService:
+  enabled: true        # Helm will create the stable service
+
+canaryService:
+  enabled: false       # IMPORTANT: prevents Helm from creating/owning canary service
+
+# ============================
+#  APPLICATION SETTINGS
+# ============================
 version: stable
 stableVersion: stable
 replicaCount: 3
 
+# ============================
+#  IMAGE SETTINGS
+# ============================
 image:
   repository: hareesh88666/maven-web-application
   tag: "5"
 
+# ============================
+#  SERVICE PORT SETTINGS
+# ============================
 service:
   port: 80
